@@ -1,6 +1,14 @@
 import {react, useState} from 'react';
 import axios from 'axios'
-import './App.css';
+import "./App.css"
+import IronEmblem from './assets/Emblem_Iron.png'
+import BronzeEmblem from './assets/Emblem_Bronze.png'
+import SilverEmblem from './assets/Emblem_Silver.png'
+import GoldEmblem from './assets/Emblem_Gold.png'
+import PlatinumEmblem from './assets/Emblem_Platinum.png'
+import DimondEmblem from './assets/Emblem_Diamond.png'
+import MasterEmblem from './assets/Emblem_Master.png'
+import ChallengerEmblem from './assets/Emblem_Challenger.png'
 require ("dotenv").config()
 function App() {
   const [currentInput, setCurrentInput] = useState("")
@@ -16,9 +24,14 @@ function App() {
       setPlayerData(response.data)
       setRankedId(response.data.id)
       return(axios.get(APIRankedString).then((response)=>{
-        setRank(response.data[0].rank)
-        setTier(response.data[0].tier)
-        console.log("RANKED RESPONSE:",response.data[0]);
+
+        
+
+          setRank(response.data[0].rank)
+          setTier(response.data[0].tier)
+          
+          console.log("RANKED RESPONSE:",response.data[0]);
+      
 
       }))
     }).catch((error)=>{
@@ -41,13 +54,20 @@ function App() {
           <h1>testing out apis with ajax</h1>
           <input type={'text'} placeholder={"enter LOL name here"} key="gamertag" onChange={(e)=>setCurrentInput(e.target.value)} ></input>
           <button onClick={handleClick}> search</button>
-          <h2></h2>
       
      </div>
-     {JSON.stringify(playerData) !== "{}"?<> <p>{playerData.name}</p>
-     <img width={"100"} length = {"100"} src = {`http://ddragon.leagueoflegends.com/cdn/13.1.1/img/profileicon/${playerData.profileIconId}.png`}></img>
+     {JSON.stringify(playerData) !== "{}" ?<> <p>{playerData.name}</p>
+     <img width={"100"} length = {"100"} alt={"Profile Icon"} src = {`http://ddragon.leagueoflegends.com/cdn/13.1.1/img/profileicon/${playerData.profileIconId}.png`}></img>
      <p>summoner Level : {playerData.summonerLevel} </p>
      <p>Ranked : {tier} {rank}</p>
+     {tier === "IRON" ? <img width={"100"}length={"100"}  alt={"Ranked emblem"} src = {IronEmblem}></img> : <p></p>}
+     {tier === "BRONZE" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {BronzeEmblem}></img> : <p></p>}
+     {tier === "SILVER" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}src = {SilverEmblem}></img> : <p></p>}
+     {tier === "GOLD" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {GoldEmblem}></img> : <p></p>}
+     {tier === "PLATINUM" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {PlatinumEmblem}></img> : <p></p>}
+     {tier === "DIAMOND" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {DimondEmblem}></img> : <p></p>}
+     {tier === "MASTER" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {MasterEmblem}></img> : <p></p>}
+     {tier === "CHALLANGER" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {ChallengerEmblem}></img> : <p></p>}
      </>
       : 
       <><p>we dont have player data</p></>}
