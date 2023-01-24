@@ -16,6 +16,9 @@ function App() {
   const [rankedId, setRankedId]=useState("")
   const [rank , setRank] = useState("")
   const [tier , setTier] = useState("")
+  const [rankPoints, setRankPoints]= useState("")
+  const [wins , setWins] =useState(0)
+  const [lost,setLost] = useState(0)
   
   const  handleClick = (e)=>{
     let APICallString =`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${currentInput}?api_key=${process.env.REACT_APP_API_KEY}`
@@ -29,9 +32,14 @@ function App() {
 
           setRank(response.data[0].rank)
           setTier(response.data[0].tier)
+          setRankPoints(response.data[0].leaguePoints)
+          setWins(response.data[0].wins)
+          setLost(response.data[0].losses)
+
           
-          console.log("RANKED RESPONSE:",response.data[0]);
-      
+          
+          // console.log("RANKED Wins:",response.data[0].wins);
+          // console.log("RANKED Loses:",response.data[0].losses);
 
       }))
     }).catch((error)=>{
@@ -59,7 +67,10 @@ function App() {
      {JSON.stringify(playerData) !== "{}" ?<> <p>{playerData.name}</p>
      <img width={"100"} length = {"100"} alt={"Profile Icon"} src = {`http://ddragon.leagueoflegends.com/cdn/13.1.1/img/profileicon/${playerData.profileIconId}.png`}></img>
      <p>summoner Level : {playerData.summonerLevel} </p>
-     <p>Ranked : {tier} {rank}</p>
+     <p>Ranked : {tier} {rank} LP: {rankPoints}</p>
+     <p>Total games : {wins + lost}</p>
+     <p>Games Won: {wins}  --  Games Lost: {lost} </p>
+     <p>winrate percentage {(wins / (wins + lost) * 100).toFixed(2)}%</p>
      {tier === "IRON" ? <img width={"100"}length={"100"}  alt={"Ranked emblem"} src = {IronEmblem}></img> : <p></p>}
      {tier === "BRONZE" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}  src = {BronzeEmblem}></img> : <p></p>}
      {tier === "SILVER" ? <img width={"100"}length={"100"} alt={"Ranked emblem"}src = {SilverEmblem}></img> : <p></p>}
