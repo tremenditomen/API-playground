@@ -56,16 +56,18 @@ function App() {
 
 
   return (
-    <div className="App">
-     <div className='Tittle'>
+    <body >
 
+      
+    <div className="Container">
+    
           <h1>testing out apis with ajax</h1>
           <input type={'text'} placeholder={"enter LOL name here"} key="gamertag" onChange={(e)=>setCurrentInput(e.target.value)} ></input>
           <button onClick={handleClick}> search</button>
       
-     </div >
-     <div >
-      
+     <div className='PlayerCard'>
+      <div className='PlayerInfo'>
+
      {JSON.stringify(playerData) !== "{}" ?<> <p>{playerData.name}</p>
      <img width={"100"} length = {"100"} alt={"Profile Icon"} src = {`http://ddragon.leagueoflegends.com/cdn/13.1.1/img/profileicon/${playerData.profileIconId}.png`}></img>
      <p>summoner Level : {playerData.summonerLevel} </p>
@@ -84,8 +86,10 @@ function App() {
      </>
       : 
       <><p>we dont have player data</p></>}
+      </div>
      </div>
     </div>
+    </body>
   );
 }
 
